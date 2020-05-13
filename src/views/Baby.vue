@@ -1,6 +1,8 @@
 <template>
   <div>
       <el-button>开始{{ count }}</el-button>
+      <el-button>开始{{ count }}</el-button>
+      <el-button>开始{{ count }}</el-button>
   </div>
 </template>
 
