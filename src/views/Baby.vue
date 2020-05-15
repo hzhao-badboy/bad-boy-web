@@ -36,7 +36,7 @@ export default {
       this.totalCount = 0
       this.validCount = 0
       this.lastClickTime = null
-      this.stopTime = Moment().add(10, 'second').valueOf()
+      this.stopTime = Moment().add(1, 'hour').valueOf()
       this.startTime = Moment().valueOf()
       this.startEnabled = true
     },

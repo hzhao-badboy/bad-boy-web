@@ -1,17 +1,150 @@
 <template>
-  <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+      <h1 class="title">数胎动</h1>
+      <div>
+        <div class='center_content'>
+          <div class="show_time">倒计时：{{ showTime }}</div>
+          <div class="">胎动总数：<span class="">{{ totalCount }}</span></div>
+        </div>
+        <el-button type="primary" class="record" @click="addRecord">
+          <div v-if='startEnabled'>
+            {{ validCount }} <span class="count_unit">次</span>
+          </div>
+          <div v-else>开始</div>
+        </el-button>
+        <div class="stop"><el-button @click="stop" size="mini" round type="danger">取消</el-button></div>
+      </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Moment from 'moment'
 
 export default {
-  name: 'Home',
+  data () {
+    return {
+      startEnabled: false,
+      totalCount: 0,
+      validCount: 0,
+      lastClickTime: null,
+      stopTime: 0,
+      timeInterval: null,
+      showTime: '00:00',
+      startTime: 0
+    }
+  },
   components: {
-    HelloWorld
+  },
+  methods: {
+    stop () {
+      this.$confirm('确定取消本次记录吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        clearInterval(this.timeInterval)
+        this.totalCount = 0
+        this.validCount = 0
+        this.lastClickTime = null
+        this.stopTime = 0
+        this.startTime = 0
+        this.startEnabled = false
+        this.showTime = '00:00'
+      }).catch(() => {
+      })
+    },
+    start () {
+      console.log('start')
+      this.totalCount = 0
+      this.validCount = 0
+      this.lastClickTime = null
+      this.stopTime = Moment().add(1, 'hour').valueOf()
+      this.startTime = Moment().valueOf()
+      this.startEnabled = true
+      clearInterval(this.timeInterval)
+      this.getSurplusTime()
+      this.timeInterval = setInterval(this.getSurplusTime, 1000)
+    },
+    timesUp () {
+      this.startEnabled = false
+    },
+    getSurplusTime () {
+      const nowTime = Moment()
+      const surplusTime = parseInt((this.stopTime - nowTime) / 1000)
+      if (surplusTime !== 0) {
+        let m = parseInt(surplusTime / 60)
+        let s = surplusTime - m * 60
+        if (s < 10) {
+          s = '0' + s
+        }
+        if (m < 10) {
+          m = '0' + m
+        }
+        this.showTime = m + ':' + s
+      } else {
+        clearInterval(this.timeInterval)
+      }
+    },
+    addRecord () {
+      if (!this.startEnabled) {
+        this.start()
+      } else {
+        console.log('add click')
+        const nowTime = Moment()
+        this.totalCount += 1
+        if (this.lastClickTime == null) {
+          this.validCount += 1
+        } else {
+          const interTime = nowTime - this.lastClickTime
+          if (interTime >= 3 * 60 * 1000) {
+            this.validCount += 1
+          }
+        }
+        this.lastClickTime = nowTime
+      }
+    }
   }
 }
 </script>
+
+<style scoped>
+  .title {
+    color:violet;
+  }
+  .stop {
+    margin-top: 70px;
+  }
+  .show_time {
+    margin-right: 50px;
+  }
+  .center_content {
+    display: flex;
+    justify-content: center;
+    margin: 50px;
+    font-size: 1rem;
+    color: rgb(126, 34, 80);
+  }
+  .count_unit {
+    font-size: 1rem;
+  }
+  .record {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    font-size: 3rem;
+    background-color: rgb(243, 137, 199);
+    border-color: rgb(243, 137, 199);
+  }
+  .record:focus {
+    background-color: rgb(243, 137, 199);
+    border-color: rgb(243, 137, 199);
+  }
+  .record:hover {
+    background-color: rgb(243, 137, 199, 0.5);
+    border-color: rgb(243, 137, 199, 0.5);
+  }
+  .record_text {
+    margin-top: 50px;
+    font-size: 20px;
+  }
+</style>
