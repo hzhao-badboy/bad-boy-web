@@ -14,6 +14,19 @@
         </el-button>
         <div class="stop"><el-button @click="stop" size="mini" round type="danger">取消</el-button></div>
       </div>
+
+      <el-dialog
+        title="本次结果"
+        :visible.sync="successVisible"
+        :before-close="countSuccess"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false">
+        <span>有效胎动数：{{ validCount }}</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="countSuccess">确 定</el-button>
+        </span>
+      </el-dialog>
+
   </div>
 </template>
 
@@ -30,12 +43,23 @@ export default {
       stopTime: 0,
       timeInterval: null,
       showTime: '00:00',
+      successVisible: false,
       startTime: 0
     }
   },
   components: {
   },
   methods: {
+    countSuccess () {
+      this.successVisible = false
+      this.totalCount = 0
+      this.validCount = 0
+      this.lastClickTime = null
+      this.stopTime = 0
+      this.startTime = 0
+      this.startEnabled = false
+      this.showTime = '00:00'
+    },
     stop () {
       this.$confirm('确定取消本次记录吗？', '提示', {
         confirmButtonText: '确定',
@@ -82,6 +106,8 @@ export default {
         }
         this.showTime = m + ':' + s
       } else {
+        this.showTime = '00:00'
+        this.successVisible = true
         clearInterval(this.timeInterval)
       }
     },
