@@ -13,6 +13,12 @@
           <div v-else>开始</div>
         </el-button>
         <div class="stop"><el-button @click="stopVisible = true" size="mini" round type="danger">取消</el-button></div>
+        <el-tooltip placement="top" effect="light" popper-class="instruction_tip">
+          <div slot="content"><span class="tip_title">1小时计数法：</span>孕28-30周开始，每天计数1小时。从自觉胎动开始，在1小时内，胎动1次记一次，连续胎动记一次，1小时胎动总数大于3-4次为正常，如1小时不足3次，则继续计数1小时，2小时胎动总数大于6次为正常。<br/>
+          <span class="tip_title">就诊提醒：</span>如果胎动计算异常，或自觉胎动数较平时的平均数明显减少，应<span class="warning">立即就诊！</span>
+          </div>
+          <i class=" instruction el-icon-question"></i>
+        </el-tooltip>
       </div>
 
       <el-dialog
@@ -154,6 +160,9 @@ export default {
 </script>
 
 <style>
+  .el-tooltip__popper{
+    max-width: 61.8% !important;
+  }
   .el-dialog__body {
     color:#ff8a65 !important;
     text-align: center !important;
@@ -168,6 +177,20 @@ export default {
   }
 </style>
 <style scoped>
+  .tip_title{
+    color: #ff8a65;
+  }
+  .warning{
+    color: red;
+    font-size: 1rem;
+  }
+  .instruction {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    color: #9e9e9e;
+    font-size: 1.5rem;
+  }
   .valied_count {
     color: #a4d465;
     font-size: 2rem;
