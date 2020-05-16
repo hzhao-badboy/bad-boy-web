@@ -12,7 +12,7 @@
           </div>
           <div v-else>开始</div>
         </el-button>
-        <div class="stop"><el-button @click="stop" size="mini" round type="danger">取消</el-button></div>
+        <div class="stop"><el-button @click="stopVisible = true" size="mini" round type="danger">取消</el-button></div>
       </div>
 
       <el-dialog
@@ -20,10 +20,27 @@
         :visible.sync="successVisible"
         :before-close="countSuccess"
         :close-on-click-modal="false"
-        :close-on-press-escape="false">
-        <span>有效胎动数：{{ validCount }}</span>
+        :close-on-press-escape="false"
+        center
+        :show-close="false"
+        custom-class="tip_dialog">
+        <span>有效胎动数：<span class="valied_count">{{ validCount }}</span></span>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="countSuccess">确 定</el-button>
+          <el-button type="danger" size="mini" round @click="countSuccess">确 定</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog
+        title="提示"
+        :visible.sync="stopVisible"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        :show-close="false"
+        center
+        custom-class="tip_dialog">
+        <span>确定取消本次记录吗？</span>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" class="cancel_btn" size="mini" @click="stopVisible = false" round>取 消</el-button>
+          <el-button type="danger" size="mini" @click="stop" round>确 定</el-button>
         </span>
       </el-dialog>
 
@@ -44,6 +61,7 @@ export default {
       timeInterval: null,
       showTime: '00:00',
       successVisible: false,
+      stopVisible: false,
       startTime: 0
     }
   },
@@ -61,24 +79,17 @@ export default {
       this.showTime = '00:00'
     },
     stop () {
-      this.$confirm('确定取消本次记录吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        clearInterval(this.timeInterval)
-        this.totalCount = 0
-        this.validCount = 0
-        this.lastClickTime = null
-        this.stopTime = 0
-        this.startTime = 0
-        this.startEnabled = false
-        this.showTime = '00:00'
-      }).catch(() => {
-      })
+      clearInterval(this.timeInterval)
+      this.totalCount = 0
+      this.validCount = 0
+      this.lastClickTime = null
+      this.stopTime = 0
+      this.startTime = 0
+      this.startEnabled = false
+      this.showTime = '00:00'
+      this.stopVisible = false
     },
     start () {
-      console.log('start')
       this.totalCount = 0
       this.validCount = 0
       this.lastClickTime = null
@@ -115,7 +126,6 @@ export default {
       if (!this.startEnabled) {
         this.start()
       } else {
-        console.log('add click')
         const nowTime = Moment()
         this.totalCount += 1
         if (this.lastClickTime == null) {
@@ -133,7 +143,30 @@ export default {
 }
 </script>
 
+<style>
+  .el-dialog__body {
+    color:#ff8a65 !important;
+    text-align: center !important;
+  }
+  .el-dialog__title {
+    color: #ff8a65 !important;
+  }
+  .tip_dialog {
+    background-color: antiquewhite !important;
+    font-size: 1rem;
+    border-radius: 10px !important;
+  }
+</style>
 <style scoped>
+  .valied_count {
+    color: #a4d465;
+    font-size: 2rem;
+  }
+  .cancel_btn{
+    background: #ffffff;
+    color:#ff8a65;
+    border-color: #ff8a65;
+  }
   .title {
     color:violet;
   }
