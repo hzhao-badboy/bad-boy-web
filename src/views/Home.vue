@@ -67,6 +67,13 @@ export default {
   },
   components: {
   },
+  mounted () {
+    const rec = document.getElementsByClassName('record')[0]
+    // 动画结束时事件
+    rec.addEventListener('webkitAnimationEnd', function () {
+      this.className = 'record'
+    })
+  },
   methods: {
     countSuccess () {
       this.successVisible = false
@@ -123,16 +130,19 @@ export default {
       }
     },
     addRecord () {
+      const rec = document.getElementsByClassName('record')[0]
       if (!this.startEnabled) {
         this.start()
       } else {
         const nowTime = Moment()
         this.totalCount += 1
         if (this.lastClickTime == null) {
+          rec.className = 'record record_animation'
           this.validCount += 1
         } else {
           const interTime = nowTime - this.lastClickTime
           if (interTime >= 3 * 60 * 1000) {
+            rec.className = 'record record_animation'
             this.validCount += 1
           }
         }
@@ -187,23 +197,32 @@ export default {
     font-size: 1rem;
   }
   .record {
+    color: #fff;
     width: 200px;
     height: 200px;
     border-radius: 100px;
     font-size: 3rem;
     background-color: rgb(243, 137, 199);
-    border-color: rgb(243, 137, 199);
+    border: 1px solid rgb(243, 137, 199);
   }
   .record:focus {
     background-color: rgb(243, 137, 199);
     border-color: rgb(243, 137, 199);
   }
   .record:hover {
-    background-color: rgb(243, 137, 199, 0.5);
-    border-color: rgb(243, 137, 199, 0.5);
+    background-color: rgb(243, 137, 199);
+    border-color: rgb(243, 137, 199);
   }
   .record_text {
     margin-top: 50px;
     font-size: 20px;
+  }
+  .record_animation{
+    animation: free_download 1s linear alternate 1;
+  }
+  @keyframes free_download{
+      0%{transform:scale(1);}
+      50%{transform:scale(1.2);}
+      100%{transform:scale(1);}
   }
 </style>
