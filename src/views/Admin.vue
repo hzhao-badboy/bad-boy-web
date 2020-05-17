@@ -3,6 +3,7 @@
     <el-upload class="upload-demo"
                ref="upload"
                action=""
+               multiple
                :file-list="fileList"
                :http-request="uploadImage"
                :auto-upload="false">

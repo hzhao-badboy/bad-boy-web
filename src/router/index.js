@@ -15,12 +15,12 @@ const routes = [
     component: Home,
     children: [
       {
-        path: '/',
+        path: '/album',
         name: 'Album',
         component: Album
       },
       {
-        path: '/baby',
+        path: '/',
         name: 'Baby',
         component: Baby
       },
