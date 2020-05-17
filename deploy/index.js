@@ -1,9 +1,9 @@
-const scpClient = require('scp2')
-const ora = require('ora')
-const chalk = require('chalk')
-const server = require('./products')
-const spinner = ora('正在发布到' + (process.env.NODE_ENV === 'prod' ? '生产' : '测试') + '服务器...')
-spinner.start()
+const scpClient = require('scp2');
+const ora = require('ora');
+const chalk = require('chalk');
+const server = require('./products').default;
+const spinner = ora('正在发布到' + (process.env.NODE_ENV === 'prod' ? '生产' : '测试') + '服务器...');
+spinner.start();
 scpClient.scp(
   'dist/',
   {
@@ -14,12 +14,12 @@ scpClient.scp(
     path: server.path
   },
   function (err) {
-    spinner.stop()
+    spinner.stop();
     if (err) {
-      console.log(chalk.red('发布失败.\n'))
-      throw err
+      console.log(chalk.red('发布失败.\n'));
+      throw err;
     } else {
-      console.log(chalk.green('Success! 成功发布到' + (process.env.NODE_ENV === 'prod' ? '生产' : '测试') + '服务器! \n'))
+      console.log(chalk.green('Success! 成功发布到' + (process.env.NODE_ENV === 'prod' ? '生产' : '测试') + '服务器! \n'));
     }
   }
-)
+);
