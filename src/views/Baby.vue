@@ -3,77 +3,77 @@
     <h1 class="title">数胎动</h1>
     <div>
       <div class="center_content">
-        <div class="show_time">倒计时：{{ showTime }}</div>
-        <div class="">
-          胎动总数：<span class="">{{ totalCount }}</span>
-        </div>
+        <el-row>
+          <el-col :span="12">
+            倒计时：{{ showTime }}
+          </el-col>
+          <el-col :span="12">
+            胎动总数：{{ totalCount }}
+          </el-col>
+        </el-row>
       </div>
-      <el-button type="primary" class="record" @click="addRecord">
+      <el-button type="primary"
+                 class="record"
+                 @click="addRecord">
         <div v-if="startEnabled">
           {{ validCount }} <span class="count_unit">次</span>
         </div>
         <div v-else>开始</div>
       </el-button>
       <div class="stop">
-        <el-button @click="stopVisible = true" size="mini" round type="danger"
-          >取消</el-button
-        >
+        <el-button @click="stopVisible = true"
+                   size="mini"
+                   round
+                   type="danger">取消</el-button>
       </div>
-      <el-tooltip placement="top" effect="light" popper-class="instruction_tip">
+      <el-tooltip placement="top"
+                  effect="light"
+                  popper-class="instruction_tip">
         <div slot="content">
-          <span class="tip_title">1小时计数法：</span
-          >孕28-30周开始，每天计数1小时。从自觉胎动开始，在1小时内，胎动1次记一次，连续胎动记一次，1小时胎动总数大于3-4次为正常，如1小时不足3次，则继续计数1小时，2小时胎动总数大于6次为正常。<br />
-          <span class="tip_title">就诊提醒：</span
-          >如果胎动计算异常，或自觉胎动数较平时的平均数明显减少，应<span
-            class="warning"
-            >立即就诊！</span
-          >
+          <span
+                class="tip_title">1小时计数法：</span>孕28-30周开始，每天计数1小时。从自觉胎动开始，在1小时内，胎动1次记一次，连续胎动记一次，1小时胎动总数大于3-4次为正常，如1小时不足3次，则继续计数1小时，2小时胎动总数大于6次为正常。<br />
+          <span class="tip_title">就诊提醒：</span>如果胎动计算异常，或自觉胎动数较平时的平均数明显减少，应<span class="warning">立即就诊！</span>
         </div>
         <i class=" instruction el-icon-question"></i>
       </el-tooltip>
     </div>
 
-    <el-dialog
-      title="本次结果"
-      :visible.sync="successVisible"
-      :before-close="countSuccess"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      center
-      :show-close="false"
-      custom-class="tip_dialog"
-    >
-      <span
-        >有效胎动数：<span class="valied_count">{{ validCount }}</span></span
-      >
-      <span slot="footer" class="dialog-footer">
-        <el-button type="danger" size="mini" round @click="countSuccess"
-          >确 定</el-button
-        >
+    <el-dialog title="本次结果"
+               :visible.sync="successVisible"
+               :before-close="countSuccess"
+               :close-on-click-modal="false"
+               :close-on-press-escape="false"
+               center
+               :show-close="false"
+               custom-class="tip_dialog">
+      <span>有效胎动数：<span class="valied_count">{{ validCount }}</span></span>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="danger"
+                   size="mini"
+                   round
+                   @click="countSuccess">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog
-      title="提示"
-      :visible.sync="stopVisible"
-      :close-on-click-modal="false"
-      :close-on-press-escape="false"
-      :show-close="false"
-      center
-      custom-class="tip_dialog"
-    >
+    <el-dialog title="提示"
+               :visible.sync="stopVisible"
+               :close-on-click-modal="false"
+               :close-on-press-escape="false"
+               :show-close="false"
+               center
+               custom-class="tip_dialog">
       <span>确定取消本次记录吗？</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button
-          type="primary"
-          class="cancel_btn"
-          size="mini"
-          @click="stopVisible = false"
-          round
-          >取 消</el-button
-        >
-        <el-button type="danger" size="mini" @click="stop" round
-          >确 定</el-button
-        >
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   class="cancel_btn"
+                   size="mini"
+                   @click="stopVisible = false"
+                   round>取 消</el-button>
+        <el-button type="danger"
+                   size="mini"
+                   @click="stop"
+                   round>确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -101,7 +101,7 @@ export default {
   mounted() {
     const rec = document.getElementsByClassName("record")[0];
     // 动画结束时事件
-    rec.addEventListener("webkitAnimationEnd", function() {
+    rec.addEventListener("webkitAnimationEnd", function () {
       this.className = "record";
     });
   },
@@ -237,9 +237,7 @@ export default {
   margin-right: 50px;
 }
 .center_content {
-  display: flex;
-  justify-content: center;
-  margin: 50px;
+  margin: 50px 0;
   font-size: 1rem;
   color: rgb(126, 34, 80);
 }

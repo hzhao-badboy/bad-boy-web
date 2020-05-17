@@ -9,8 +9,10 @@
         "deploy": "npm run build && cross-env NODE_ENV=prod node ./deploy"
     },
     "dependencies": {
+        "axios": "^0.19.2",
         "core-js": "^3.6.4",
         "element-ui": "^2.4.5",
+        "mint-ui": "^2.2.13",
         "moment": "^2.25.3",
         "vue": "^2.6.11",
         "vue-router": "^3.1.6",
@@ -48,10 +50,22 @@
             "parser": "babel-eslint"
         },
         "rules": {
-            "semi": [ 2, "always" ],
+            "semi": [
+                2,
+                "always"
+            ],
             "space-before-function-paren": 0,
-            "quotes": [0, "single"],
-            "semi-spacing": [2, {"before": false, "after": true}],
+            "quotes": [
+                0,
+                "single"
+            ],
+            "semi-spacing": [
+                2,
+                {
+                    "before": false,
+                    "after": true
+                }
+            ],
             "no-multi-spaces": 1,
             "no-spaced-func": 2
         }
