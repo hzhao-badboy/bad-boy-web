@@ -3,7 +3,8 @@
     <div v-for="item in images"
          :key="item.id">
       <el-image style="width: 100px; height: 100px"
-                :src="host + item.fileid"></el-image>
+                :src="host + item.fileid"
+                :preview-src-list="srcList"></el-image>
     </div>
   </div>
 </template>
@@ -24,6 +25,11 @@ export default {
   mounted() {
     this.getList();
     document.addEventListener("scroll", this.scrollFun);
+  },
+  computed: {
+    srcList() {
+      return this.images.map(res => { return this.host + res.fileid; });
+    }
   },
   methods: {
     scrollFun(val) {
