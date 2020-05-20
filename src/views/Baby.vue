@@ -3,14 +3,12 @@
     <h1 class="title">数胎动</h1>
     <div>
       <div class="center_content">
-        <el-row>
-          <el-col :span="12">
-            倒计时：{{ showTime }}
-          </el-col>
-          <el-col :span="12">
-            胎动总数：{{ totalCount }}
-          </el-col>
-        </el-row>
+        <div class="center_content_left">
+          倒计时：{{ showTime }}
+        </div>
+        <div class="center_content_right">
+          胎动总数：<div class="total_number">{{ totalCount }}</div>
+        </div>
       </div>
       <el-button type="primary"
                  class="record"
@@ -174,7 +172,7 @@ export default {
           this.validCount += 1;
         } else {
           const interTime = nowTime - this.lastClickTime;
-          if (interTime >= 3 * 60 * 1000) {
+          if (interTime >= 4 * 60 * 1000) {
             rec.className = "record record_animation";
             this.validCount += 1;
           }
@@ -237,9 +235,27 @@ export default {
   margin-right: 50px;
 }
 .center_content {
+  display: flex;
+  align-items: center;
   margin: 50px 0;
   font-size: 1rem;
   color: rgb(126, 34, 80);
+}
+.center_content_left {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.center_content_right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.total_number {
+  font-size: 2rem;
+  color: rgb(16, 228, 243);
 }
 .count_unit {
   font-size: 1rem;

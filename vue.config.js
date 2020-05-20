@@ -20,27 +20,24 @@ module.exports = {
       }
     }
   },
-  chainWebpack: config => {
-    // 清除css，js版本号
-    config.output.filename('js/[name].js').end();
-    config.output.chunkFilename('js/[name].js').end();
-    // 为生产环境修改配置...
-    config.plugin('extract-css').tap(args => [{
-      filename: `css/[name].css`,
-      chunkFilename: `css/[name].css`
-    }]);
-  },
+  // chainWebpack: config => {
+  //   // 清除css，js版本号
+  //   config.output.filename('js/[name].js').end();
+  //   config.output.chunkFilename('js/[name].js').end();
+  //   // 为生产环境修改配置...
+  //   config.plugin('extract-css').tap(args => [{
+  //     filename: `css/[name].css`,
+  //     chunkFilename: `css/[name].css`
+  //   }]);
+  // },
   // gzip 配置
   configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production') {
-      // 生产环境
-      return {
-        plugins: [new CompressionWebpackPlugin({
-          test: /\.js$|\.html$|\.css/, // 匹配文件名
-          threshold: 1024, // 文件压缩阈值，对超过10k的进行压缩
-          deleteOriginalAssets: false // 是否删除源文件
-        })]
-      };
-    }
+    return {
+      plugins: [new CompressionWebpackPlugin({
+        test: /\.js$|\.html$|\.css/, // 匹配文件名
+        threshold: 1024, // 文件压缩阈值，对超过10k的进行压缩
+        deleteOriginalAssets: false // 是否删除源文件
+      })]
+    };
   }
 };

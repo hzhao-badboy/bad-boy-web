@@ -24,16 +24,21 @@
           <span slot="title"
                 @click="$router.push('/'); drawer=false;">数胎动</span>
         </el-menu-item>
-        <el-menu-item index="3">
-          <i class="el-icon-picture"></i>
-          <span slot="title"
-                @click="uploadImage">上传图片</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-s-custom"></i>
-          <span slot="title"
-                @click="$router.push('/login'); drawer=false;">登录</span>
-        </el-menu-item>
+        <div v-if="isLogin">
+          <el-menu-item index="3">
+            <i class="el-icon-picture"></i>
+            <span slot="title"
+                  @click="uploadImage">上传图片</span>
+          </el-menu-item>
+        </div>
+        <div v-if="!isLogin">
+          <el-menu-item index="4">
+            <i class="el-icon-s-custom"></i>
+            <span slot="title"
+                  @click="$router.push('/login'); drawer=false;">登录</span>
+          </el-menu-item>
+        </div>
+
       </el-menu>
     </el-drawer>
   </div>
@@ -46,6 +51,11 @@ export default {
       drawer: false,
       direction: 'rtl'
     };
+  },
+  computed: {
+    isLogin() {
+      return !!localStorage.getItem('token');
+    }
   },
   methods: {
     uploadImage() {
