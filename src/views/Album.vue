@@ -1,16 +1,27 @@
 <template>
   <div>
-    <div v-for="item in images"
-         :key="item.id">
-      <el-image style="width: 100px; height: 100px"
-                :src="host + item.fileid"
-                :preview-src-list="srcList"></el-image>
-    </div>
+    <waterfall style="margin-top: 40px; overflow: scroll !improtant;"
+               :line-gap="200"
+               :min-line-gap="180"
+               :max-line-gap="220"
+               :watch="images">
+      <waterfall-slot v-for="(item, index) in images"
+                      :width="item.width"
+                      :height="item.height"
+                      :order="index"
+                      :key="index">
+        <el-image :src="host + item.fileid"
+                  :preview-src-list="srcList"></el-image>
+      </waterfall-slot>
+    </waterfall>
   </div>
 </template>
 
 <script>
 import { getAlbumList } from '../api/Api';
+import Waterfall from 'vue-waterfall/lib/waterfall';
+import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot';
+
 export default {
   data() {
     return {
@@ -21,6 +32,10 @@ export default {
       host: 'http://img.bad-boy.xyz/',
       images: []
     };
+  },
+  components: {
+    Waterfall,
+    WaterfallSlot
   },
   mounted() {
     this.getList();
@@ -52,6 +67,7 @@ export default {
       });
       if (res.data && res.data.length > 0) {
         this.images = this.images.concat(res.data);
+        console.log(this.images.length);
       } else {
         this.noMoreData = true;
       }
