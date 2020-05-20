@@ -24,23 +24,15 @@
           <span slot="title"
                 @click="$router.push('/'); drawer=false;">数胎动</span>
         </el-menu-item>
-        <el-menu-item v-if="isLogin"
-                      index="3">
+        <el-menu-item index="3">
           <i class="el-icon-picture"></i>
           <span slot="title"
                 @click="uploadImage">上传图片</span>
         </el-menu-item>
-        <el-menu-item index="4"
-                      class="menu_v2">
-          <div v-if="!isLogin">
-            <i class="el-icon-s-custom"></i>
-            <span slot="title"
-                  @click="$router.push('/login'); drawer=false;">登录</span>
-          </div>
-          <div v-if="isLogin">
-            <i class="el-icon-s-custom"></i>
-            <span slot="title">admin</span>
-          </div>
+        <el-menu-item index="4">
+          <i class="el-icon-s-custom"></i>
+          <span slot="title"
+                @click="$router.push('/login'); drawer=false;">登录</span>
         </el-menu-item>
       </el-menu>
     </el-drawer>
@@ -54,11 +46,6 @@ export default {
       drawer: false,
       direction: 'rtl'
     };
-  },
-  computed: {
-    isLogin() {
-      return !!localStorage.getItem('token');
-    }
   },
   methods: {
     uploadImage() {
@@ -91,14 +78,8 @@ export default {
 }
 </style>
 <style scoped>
-.menu_v2 {
-  position: fixed;
-  width: 100%;
-  bottom: 20px;
-}
 .el-menu-vertical-demo {
   text-align: left;
-  border-right: none;
 }
 .home-btn {
   position: fixed;
