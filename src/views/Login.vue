@@ -37,11 +37,9 @@ export default {
         name: this.formLabelAlign.name,
         password: this.formLabelAlign.password
       });
-      if (res.success) {
-        localStorage.setItem('token', res.data);
-        this.$router.push('Admin');
-      } else {
-        console.log('res: ', res.message);
+      if (res) {
+        localStorage.setItem('token', res);
+        this.$router.push('Album');
       }
     }
   }

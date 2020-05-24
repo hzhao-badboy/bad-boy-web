@@ -1,65 +1,51 @@
 <template>
-  <div>
-    <div v-for="item in images"
-         :key="item.id">
-      <el-image style="width: 100px; height: 100px"
-                :src="host + item.fileid"
-                :preview-src-list="srcList"></el-image>
-    </div>
+  <div class="waterfall">
+    <vue-waterfall-easy :imgsArr="images"
+                        ref="waterfall"
+                        @scrollReachBottom="getList"></vue-waterfall-easy>
   </div>
 </template>
 
 <script>
 import { getAlbumList } from '../api/Api';
+import vueWaterfallEasy from 'vue-waterfall-easy';
+
 export default {
   data() {
     return {
-      pageIndex: 1,
+      pageIndex: 0,
       pageSize: 10,
-      loading: false,
-      noMoreData: false,
-      host: 'http://img.bad-boy.xyz/',
       images: []
     };
   },
+  components: {
+    vueWaterfallEasy
+  },
   mounted() {
     this.getList();
-    document.addEventListener("scroll", this.scrollFun);
-  },
-  computed: {
-    srcList() {
-      return this.images.map(res => { return this.host + res.fileid; });
-    }
   },
   methods: {
-    scrollFun(val) {
-      const windowHeight = document.documentElement.clientHeight;
-      const scrollHeight = document.documentElement.scrollTop;
-      const documentHeight = document.documentElement.scrollHeight;
-
-      if (windowHeight + scrollHeight > documentHeight - 5) {
-        if (!this.loading && !this.noMoreData) {
-          this.loading = true;
-          this.pageIndex += 1;
-          this.getList();
-        }
-      }
-    },
     async getList() {
+      this.pageIndex += 1;
       const res = await getAlbumList({
         page_index: this.pageIndex,
         page_size: this.pageSize
       });
-      if (res.data && res.data.length > 0) {
-        this.images = this.images.concat(res.data);
+      if (res && res.length > 0) {
+        this.images = this.images.concat(res.map(o => ({ src: o.fileid })));
       } else {
-        this.noMoreData = true;
+        this.$refs.waterfall.waterfallOver();
       }
-      this.loading = false;
     }
   }
 };
 </script>
 
 <style scoped>
+.waterfall {
+  position: absolute;
+  top: 32px;
+  bottom: 0;
+  width: 100%;
+}
 </style>

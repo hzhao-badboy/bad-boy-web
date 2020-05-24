@@ -1,79 +1,82 @@
 {
-    "name": "bad-boy-web",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "start": "vue-cli-service serve --open --inline --hot --port 9999",
-        "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint",
-        "deploy": "npm run build && cross-env NODE_ENV=prod node ./deploy"
+  "name": "bad-boy-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "vue-cli-service serve --inline --hot --port 9999",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run build && cross-env NODE_ENV=prod node ./deploy"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "core-js": "^3.6.4",
+    "element-ui": "^2.4.5",
+    "mint-ui": "^2.2.13",
+    "moment": "^2.25.3",
+    "qs": "^6.9.4",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.6",
+    "vue-waterfall": "^1.0.6",
+    "vuex": "^3.1.3"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.3.0",
+    "@vue/cli-plugin-eslint": "^4.3.0",
+    "@vue/cli-service": "^4.3.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "babel-eslint": "^10.1.0",
+    "compression-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
+    "scp2": "^0.5.0",
+    "vue-cli-plugin-element": "^1.0.1",
+    "vue-template-compiler": "^2.6.11",
+    "vue-waterfall-easy": "^2.4.4"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
     },
-    "dependencies": {
-        "axios": "^0.19.2",
-        "core-js": "^3.6.4",
-        "element-ui": "^2.4.5",
-        "mint-ui": "^2.2.13",
-        "moment": "^2.25.3",
-        "vue": "^2.6.11",
-        "vue-router": "^3.1.6",
-        "vuex": "^3.1.3"
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/standard"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
     },
-    "devDependencies": {
-        "@vue/cli-plugin-babel": "^4.3.0",
-        "@vue/cli-plugin-eslint": "^4.3.0",
-        "@vue/cli-service": "^4.3.0",
-        "@vue/eslint-config-standard": "^5.1.2",
-        "babel-eslint": "^10.1.0",
-        "compression-webpack-plugin": "^4.0.0",
-        "cross-env": "^7.0.2",
-        "eslint": "^6.7.2",
-        "eslint-plugin-import": "^2.20.2",
-        "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-promise": "^4.2.1",
-        "eslint-plugin-standard": "^4.0.0",
-        "eslint-plugin-vue": "^6.2.2",
-        "less": "^3.0.4",
-        "less-loader": "^5.0.0",
-        "scp2": "^0.5.0",
-        "vue-cli-plugin-element": "^1.0.1",
-        "vue-template-compiler": "^2.6.11"
-    },
-    "eslintConfig": {
-        "root": true,
-        "env": {
-            "node": true
-        },
-        "extends": [
-            "plugin:vue/essential",
-            "@vue/standard"
-        ],
-        "parserOptions": {
-            "parser": "babel-eslint"
-        },
-        "rules": {
-            "semi": [
-                2,
-                "always"
-            ],
-            "space-before-function-paren": 0,
-            "quotes": [
-                0,
-                "single"
-            ],
-            "semi-spacing": [
-                2,
-                {
-                    "before": false,
-                    "after": true
-                }
-            ],
-            "no-multi-spaces": 1,
-            "no-spaced-func": 2
+    "rules": {
+      "semi": [
+        2,
+        "always"
+      ],
+      "space-before-function-paren": 0,
+      "quotes": [
+        0,
+        "single"
+      ],
+      "semi-spacing": [
+        2,
+        {
+          "before": false,
+          "after": true
         }
-    },
-    "browserslist": [
-        "> 1%",
-        "last 2 versions",
-        "not dead"
-    ]
+      ],
+      "no-multi-spaces": 1,
+      "no-spaced-func": 2
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }
