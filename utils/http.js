@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { Notification } from 'element-ui';
 
-// const BASE_HOST = 'http://back.bad-boy.xyz';
-const BASE_HOST = 'http://localhost:8088';
+const BASE_HOST = 'http://back.bad-boy.xyz';
 
 const req = {};
 
