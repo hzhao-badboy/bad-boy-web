@@ -172,7 +172,7 @@ export default {
           this.validCount += 1;
         } else {
           const interTime = nowTime - this.lastClickTime;
-          if (interTime >= 4 * 60 * 1000) {
+          if (interTime >= 3 * 60 * 1000) {
             rec.className = "record record_animation";
             this.validCount += 1;
           }
